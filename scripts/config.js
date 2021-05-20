@@ -213,7 +213,9 @@ const builds = {
   }
 }
 
+// 根据环境变量 TARGET 获取配置信息
 function genConfig (name) {
+  // 获取生成配置的信息
   const opts = builds[name]
   const config = {
     input: opts.entry,
@@ -263,9 +265,11 @@ function genConfig (name) {
   return config
 }
 
+// 判断环境变量是否有 TARGET
 if (process.env.TARGET) {
   module.exports = genConfig(process.env.TARGET)
 } else {
+  // 否则获取全部配置
   exports.getBuild = genConfig
   exports.getAllBuilds = () => Object.keys(builds).map(genConfig)
 }
